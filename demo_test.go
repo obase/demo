@@ -61,8 +61,13 @@ curl -XPOST http://127.0.0.1:8000/api/student/add \
 
 /*
 websocket客户端测试: chrome + smart websocket client
+必须注意: "wbskNotCheckOrigin: true", 否则同域检查会失效
 
 ws://localhost:8000/api/student/add
 
-
+{
+    "name": "小李",
+    "age": 30,
+    "score": 3.3
+}
  */
