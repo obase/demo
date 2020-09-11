@@ -1,0 +1,150 @@
+# 服务注册中心
+center: "10.11.165.44:18500"
+
+# 服务元数据
+service:
+  # 服务名称, 自动注册<name>, <name>.http, <name>.grpc三种服务
+  name: "demo"
+  # Http请求(post请求及websocket请求)主机, 如果为空, 默认本机首个私有IP
+  httpHost: ${HOST:"127.0.0.1"}
+  httpPort: 8000
+  # consul健康检查超时及间隔. 默认5s与6s
+  httpKeepAlive: "5m"
+  httpCheckTimeout: "5s"
+  httpCheckInterval: "6s"
+  # 启用SSL
+  httpCertFile: ""
+  httpKeyFile: ""
+  # Weboscket读写缓存大小及是否检查源
+  wbskReadBufferSize: 8092
+  wbskWriteBufferSize: 8092
+  wbskNotCheckOrigin: true
+
+  # Grpc请求主机, 如果为空, 默认本机首个私有IP
+  grpcHost: "127.0.0.1"
+  grpcPort: 8100
+  # consul健康检查超时及间隔
+  grpcKeepAlive: "5m"
+  grpcCheckTimeout: "5s"
+  grpcCheckInterval: "6s"
+
+  # 缓存设置
+  cache:
+    # 缓存类型, memory | redis
+    type: "redis"
+    # 引用的key(必需),如果存在则不再创建
+    key:
+    # 地址(必需). 多值用逗号分隔
+    address: "10.11.165.44:6379"
+    # 是否集群(必需)
+    cluster: false
+    # 密码(可选)
+    password: ${PASS:sgpsvr}
+    # keepalive间隔(可选). 默认空不设置
+    keepalive: "1m"
+    # 连接超时(可选). 默认空不设置
+    connectTimeout: "1m"
+    # 读超时(可选). 默认空不设置
+    readTimeout: "1m"
+    # 写超时(可选): 默认空不设置
+    writeTimeout: "1m"
+    # 连接池初始数量(可选). 默认为0
+    initConns: 4
+    # 连接池最大数量(可选). 默认没有限制
+    maxConns: 256
+    # 连接池最大空闲数量. 默认为initConns
+    maxIdles:
+    # 连接池测试空闲超时. 处理空闲的连接若超时会执行PING测试是否可用.
+    testIdleTimeout: "20m"
+    # 连接池达到最大链接数量立即报错还是阻塞等待
+    errExceMaxConns: false
+    # 统一后缀. 默认为空, 一般用于多个业务共用Redis集群的情况
+    keyfix:
+    # 支持Database下标, 默认0
+    select: 0
+    # 代理IP. 默认为空, 一般用于网关集群测试,自动将cluster slots的内网IP替换为外网IP.
+    #proxyips: {"127.0.0.1":"192.168.2.21"}
+  # Access Log设置(TBD)
+  accesslog:
+    # 刷新时隔, 默认30秒
+    flushPeriod: "30s"
+    # 日志路径, 如果是stdout为标准输出, stderr为标准错误
+    path: "logs/access.log"
+    # 轮转大小, 0表示忽略
+    rotateBytes: 0
+    # 轮转周期, monthly|daily|hourly
+    rotateCycle: "daily"
+    # 缓冲区大小, 默认256K. 该选项很关键!
+    bufioWriterSize: 262144
+    # 新建Buffer大小, 默认128
+    newBufferSize: 256
+  # 自定义参数
+  arguments:
+    demo: "xxxe"
+    VerifyToken: "xxefef"
+  # HTT路由全局选项插件
+  #routerPlugins:
+  #  - [hostsallow,"127.0.0.1"]
+  # GRPC拦截选项插件
+  #serverPlugins:
+  #  - [hostsallow,"127.0.0.1"]
+  # HTTP路由局部选项规则
+  routerConfig:
+  # - {package: "", service: "", method: "", path: "/gw/mul", methods: ["GET","POST"], proxyPath: "/mul", proxyService: "target", proxyHttps: false, plugins: ["demo($demo)","VerifyToken($demo)"], cache: 300, off: false, remark: "测试用例"}
+    - {path: "*", access: true}
+  # GRPC转换设置规则
+  serverConfig:
+    - {package: "*", service: "*", path: "*", wbskOff: false}
+
+mongodb:
+  -
+    # 主键(string).多值用逗号分隔
+    key: demo
+    # 地址(string).多值用逗号分隔
+    address: 10.11.165.44:27017
+    # 数据库(string).默认数据库
+    database: demo
+    # 用户名(string).
+    username: admin
+    # 密码(string).
+    password: mongo@kingsoft.com
+    # 授权源(string), 默认admin
+    source: admin
+    # 读优先(string或{RMode string; RTagSet map[string]string; RMaxStateness time.Duration}): primary | primarypreferred | secondary | secondarypreferred | nearest, 默认由server端决定
+    readPreference: primary
+    # 读安全(string或{Level string}): majority | local, 默认由server端决定
+    readConcern: majority
+    # 写安全(string或{WMajority bool; W int; J bool; WTagSet string; WTimeout time.Duration}): majority | w3 | w2 | w1 | w0, 默认由server端决定
+    writeConcern: majority
+    # 是否直连(bool), true | false, 默认false
+    direct: false
+    # 指定副本
+    replicaSet:
+    # keepalive(time.Duration), 默认300秒
+    keepalive: 300s
+    # 连接超时(time.Duration), 默认10秒
+    connectTimeout: 10s
+    # 服务端选择超时(time.Duration), 默认30秒
+    serverSelectionTimeout: 30s
+    # 读写超时(time.Duration), 默认0表示永远不超时
+    socketTimeout: 0
+    # 心跳间隔(time.Duration), 默认10秒
+    heartbeatInterval: 10s
+    # 延迟窗口(time.Duration), 默认15毫秒
+    localThreshold: 15ms
+    # 最小连接数(uint64), 默认0
+    minPoolSize: 0
+    # 最大连接数(uint64), 默认0表示无限
+    maxPoolSize: 0
+    # 最大连接闲置(time.Duration), 默认0表示无限
+    maxConnIdleTime: 0
+    # 压缩通信(string或[]string), snappy(3.4) | zlib(3.6) | zstd(4.2)
+    compressors: "snappy"
+    # ZLIB级别(int)
+    zlibLevel:
+    # ZSTD级别(int)
+    zstdLevel:
+    # 读重试3.6+(bool)
+    retryReads:
+    # 写重试3.6+(bool)
+    retryWrites:
