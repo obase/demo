@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package api;
+
+message Student{
+  string name = 1;
+  int32  age = 2;
+  double score = 3;
+  bool  male = 4;
+}
+
+message PageReq {
+  string search = 1;
+  string sortby = 2;
+  bool  desc = 3;
+  int32 page = 4;
+  int32 size = 5;
+}
+
+message PageRsp {
+  repeated Student data = 1;
+  int64 total = 2;
+}
+
+service StudentService{
+  rpc Add(Student) returns (Student);
+  rpc Upd(Student) returns (Student);
+  rpc Del(Student) returns (Student);
+  rpc Get(Student) returns (Student);
+  rpc Page(PageReq) returns (PageRsp);
+}
