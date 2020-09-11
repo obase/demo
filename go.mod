@@ -8,7 +8,7 @@ require (
 	github.com/obase/conf v1.10.7
 	github.com/obase/log v1.10.7
 	github.com/obase/mongodb v1.9.1
-	github.com/obase/pbapi v1.0.1
+	github.com/obase/pbapi v1.0.2
 	github.com/obase/redis.v2 v1.0.2
 	go.mongodb.org/mongo-driver v1.4.0
 	google.golang.org/grpc v1.29.1
