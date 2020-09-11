@@ -1,6 +1,6 @@
 # package demo
 
-obase工具箱的救命项目.
+obase工具箱的示例项目.
 
 # 工具介绍
 - conf: 兼容推栏828的yaml配置conf.yml, 完成代码外的配置设置. 与Java/PHP/Python等不同, go是编译型, 代码编译打包后就是一个二进制可执行文件, 无法交"程序，资源，配置"混合.
