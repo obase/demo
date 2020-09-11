@@ -21,6 +21,12 @@ obase工具箱的救命项目.
 
 ## cmdmain: 命令行工具 
 
+- demo student -method add -params '{"name": "小张3","age": 30,"score": 3.3}'
+
 ## webmain: 微服务(http, websocket, grpc)
+
+- grpc
+- http
+- websocket
 
 具体参考demo_test.go
