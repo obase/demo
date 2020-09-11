@@ -3,7 +3,6 @@ target/
 logs/
 .*
 .*/
-*.yml
 *.iml
 *.class
 *.exe
