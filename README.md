@@ -19,7 +19,8 @@ obase工具箱的救命项目.
 
 # 示例项目
 
-## 命令行工具
+## cmdmain: 命令行工具 
 
-## 微服务(http, websocket, grpc)
+## webmain: 微服务(http, websocket, grpc)
 
+具体参考demo_test.go
