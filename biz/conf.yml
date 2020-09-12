@@ -107,7 +107,7 @@ mongodb:
     # 用户名(string).
     username: admin
     # 密码(string).
-    password: mongo@kingsoft.com
+    password: mongo@163.com
     # 授权源(string), 默认admin
     source: admin
     # 读优先(string或{RMode string; RTagSet map[string]string; RMaxStateness time.Duration}): primary | primarypreferred | secondary | secondarypreferred | nearest, 默认由server端决定
